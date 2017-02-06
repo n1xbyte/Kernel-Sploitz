@@ -25,10 +25,8 @@ VirtualAlloc = windll.kernel32.VirtualAlloc
 CreateProcess = windll.kernel32.CreateProcessW
 
 ### Startup info for CreateProcess API ###
-
 class STARTUPINFO(Structure):
     """STARTUPINFO struct for CreateProcess API"""
-
     _fields_ = [("cb", DWORD),
                 ("lpReserved", LPTSTR),
                 ("lpDesktop", LPTSTR),
@@ -49,7 +47,6 @@ class STARTUPINFO(Structure):
                 ("hStdError", HANDLE)]
 
 class PROCESS_INFORMATION(Structure):
-
     _fields_ = [("hProcess", HANDLE),
                 ("hThread", HANDLE),
                 ("dwProcessId", DWORD),
