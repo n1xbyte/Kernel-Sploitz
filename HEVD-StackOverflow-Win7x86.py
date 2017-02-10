@@ -26,7 +26,6 @@ CreateProcess = windll.kernel32.CreateProcessW
 
 ### Startup info for CreateProcess API ###
 class STARTUPINFO(Structure):
-    """STARTUPINFO struct for CreateProcess API"""
     _fields_ = [("cb", DWORD),
                 ("lpReserved", LPTSTR),
                 ("lpDesktop", LPTSTR),
