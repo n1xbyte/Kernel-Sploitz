@@ -51,7 +51,6 @@ class PROCESS_INFORMATION(Structure):
                 ("dwProcessId", DWORD),
                 ("dwThreadId", DWORD)]
 
-
 class BUFFER(Structure):
     _fields_ = [("ptr", c_ulonglong)
                 ]
