@@ -6,6 +6,8 @@ When you pass the incorrect magic value the callback parameter is not initialize
 ![uninitstackvar](https://user-images.githubusercontent.com/18420902/30252393-42875b60-9637-11e7-8008-eea401fc7d51.png)
 
 HEVD - Null Pointer Dereference - Win7 x86
+
+When you pass the incorrect magic value the callback parameter is nulled. Allocate null page and pass shellcode pointer.
 ![nullpointer](https://user-images.githubusercontent.com/18420902/30246695-12925600-95c7-11e7-8384-cc3a0c9268eb.png)
 
 HEVD - Integer Overflow - Win7 x86
