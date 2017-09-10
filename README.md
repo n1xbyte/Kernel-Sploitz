@@ -1,7 +1,7 @@
 # AWE-prep
 
 HEVD - Uninitialized Stack Variable - Win7 x86
-      When you pass the incorrect magic value the callback parameter is not initialized. Spray stack to overwrite callback using the       undocumented function NtMapUserPhysicalPages which copies input to kernel stack
+When you pass the incorrect magic value the callback parameter is not initialized. Spray stack to overwrite callback using the       undocumented function NtMapUserPhysicalPages which copies input to kernel stack
 ![uninitstackvar](https://user-images.githubusercontent.com/18420902/30252393-42875b60-9637-11e7-8008-eea401fc7d51.png)
 
 HEVD - Null Pointer Dereference - Win7 x86
