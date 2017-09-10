@@ -1,12 +1,15 @@
 # AWE-prep
 
-HEVD - Null Pointer Dereference - Win7 x32
+HEVD - Uninitilized Stack Variable - Win7 x86
+![uninitstackvar](https://user-images.githubusercontent.com/18420902/30252393-42875b60-9637-11e7-8008-eea401fc7d51.png)
+
+HEVD - Null Pointer Dereference - Win7 x86
 ![nullpointer](https://user-images.githubusercontent.com/18420902/30246695-12925600-95c7-11e7-8384-cc3a0c9268eb.png)
 
-HEVD - Integer Overflow - Win7 x32
+HEVD - Integer Overflow - Win7 x86
 ![integeroverflow](https://user-images.githubusercontent.com/18420902/30245487-ee233aee-95a0-11e7-9734-fb884165fcbc.png)
 
-HEVD - Stack Overflow - Win7 x32
+HEVD - Stack Overflow - Win7 x86
 ![image 6](https://cloud.githubusercontent.com/assets/18420902/23335109/b34ba266-fb73-11e6-8131-3f1970ba354c.jpg)
 
 HEVD - Stack Overflow - Win7 x64
