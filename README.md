@@ -1,6 +1,6 @@
 # AWE-prep
 
-HEVD - Uninitilized Stack Variable - Win7 x86
+HEVD - Uninitialized Stack Variable - Win7 x86
 ![uninitstackvar](https://user-images.githubusercontent.com/18420902/30252393-42875b60-9637-11e7-8008-eea401fc7d51.png)
 
 HEVD - Null Pointer Dereference - Win7 x86
