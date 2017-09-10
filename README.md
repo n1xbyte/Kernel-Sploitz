@@ -1,5 +1,8 @@
 # AWE-prep
 
+HEVD - Null Pointer Dereference - Win7 x32
+![nullpointer](https://user-images.githubusercontent.com/18420902/30246695-12925600-95c7-11e7-8384-cc3a0c9268eb.png)
+
 HEVD - Integer Overflow - Win7 x32
 ![integeroverflow](https://user-images.githubusercontent.com/18420902/30245487-ee233aee-95a0-11e7-9734-fb884165fcbc.png)
 
