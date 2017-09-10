@@ -1,5 +1,10 @@
 # AWE-prep
 
+HEVD - Type Confusion - Win7 x86
+
+Callback structure member is not set before passing the pointer to the TypeConfusionObjectInitializer() function
+![typeconfusion](https://user-images.githubusercontent.com/18420902/30252651-17389046-963c-11e7-8075-f82dc4b131fb.png)
+
 HEVD - Uninitialized Stack Variable - Win7 x86
 
 When you pass the incorrect magic value the callback parameter is not initialized. Spray stack to overwrite callback using the       undocumented function NtMapUserPhysicalPages which copies input to kernel stack.
