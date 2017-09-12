@@ -3,7 +3,7 @@
 HEVD - Use-After-Free - Win7 x86
 
 Heap spray size of 0x60 using IoCompleteReserve objects fits the object used here perfectly. After heap fung shui is done, allocating and freeing the object forcably leaves a pointer to the old object.
-![uaf](https://user-images.githubusercontent.com/18420902/30302198-12ad1544-9725-11e7-9dd4-a03f54a7c68d.png)
+![uaf](https://user-images.githubusercontent.com/18420902/30304710-8466306c-9734-11e7-85d4-7289d9e5a9e7.png)
 
 HEVD - Type Confusion - Win7 x86
 
