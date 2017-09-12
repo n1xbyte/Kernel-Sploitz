@@ -1,5 +1,10 @@
 # AWE-prep
 
+HEVD - Heap Overflow - Win7 x86
+
+Heap allocation max 0x1f8, fill up a fake object and overwrite next chunk pool and object header. Since OkayToCloseProcedure parameter is set to null (at 0x74 offset), when the chunk is freed it will jump to whatever pointer is at the location. We set shellcode pointer to null page at offset 0x74 and free the crafted chunk thus causing the execution to jump to shellcode.
+![heapoverflow](https://user-images.githubusercontent.com/18420902/30308091-686a8d04-9748-11e7-9f4a-ef3dc8d5355d.png)
+
 HEVD - Use-After-Free - Win7 x86
 
 Heap spray size of 0x60 using IoCompleteReserve objects fits the object used here perfectly. After heap fung shui is done, allocating and freeing the object forcably leaves a pointer to the old object.
@@ -7,7 +12,7 @@ Heap spray size of 0x60 using IoCompleteReserve objects fits the object used her
 
 HEVD - Type Confusion - Win7 x86
 
-Callback structure member is not set before passing the pointer to the TypeConfusionObjectInitializer() function
+Callback structure member is not set before passing the pointer to the TypeConfusionObjectInitializer() function.
 ![typeconfusion](https://user-images.githubusercontent.com/18420902/30252651-17389046-963c-11e7-8075-f82dc4b131fb.png)
 
 HEVD - Uninitialized Stack Variable - Win7 x86
