@@ -1,7 +1,7 @@
 # AWE-prep
 
 HEVD - Use-After-Free - Win7 x86
-![uaf](https://user-images.githubusercontent.com/18420902/30302000-d1a73b3e-9723-11e7-90bb-8488b496cdc9.png)
+![uaf](https://user-images.githubusercontent.com/18420902/30302198-12ad1544-9725-11e7-9dd4-a03f54a7c68d.png)
 
 HEVD - Type Confusion - Win7 x86
 
