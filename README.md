@@ -2,7 +2,7 @@
 
 HEVD - Heap Overflow - Win7 x86
 
-Heap allocation max 0x1f8, fill up a fake object and overwrite next chunk pool and object header. Since OkayToCloseProcedure parameter is set to null (at 0x74 offset), when the chunk is freed it will jump to whatever pointer is at the location. We set shellcode pointer to null page at offset 0x74 and free the crafted chunk thus causing the execution to jump to shellcode.
+Heap allocation max 0x1f8, fill up a fake object and overwrite next chunk pool and object header. Change the pointer to the crafted chunk to null in the Type Index Table so when the chunk is freed, the execution path will jump to OkayToCloseProcedure parameter at offset 0x74. We set shellcode pointer to null page at offset 0x74 and free the crafted chunk thus causing the execution to jump to shellcode.
 ![heapoverflow](https://user-images.githubusercontent.com/18420902/30308091-686a8d04-9748-11e7-9f4a-ef3dc8d5355d.png)
 
 HEVD - Use-After-Free - Win7 x86
