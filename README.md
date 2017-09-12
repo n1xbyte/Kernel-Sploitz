@@ -1,5 +1,8 @@
 # AWE-prep
 
+HEVD - Use-After-Free - Win7 x86
+![uaf](https://user-images.githubusercontent.com/18420902/30302000-d1a73b3e-9723-11e7-90bb-8488b496cdc9.png)
+
 HEVD - Type Confusion - Win7 x86
 
 Callback structure member is not set before passing the pointer to the TypeConfusionObjectInitializer() function
